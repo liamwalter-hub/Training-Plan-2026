@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Training Plan 2026-27</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f6f3;--card:#ffffff;--border:#e5e4e0;--border-strong:#c8c7c2;
+  --text:#1a1a18;--muted:#6b6b66;--hint:#a0a09a;
+  --you-bg:#ddeeff;--you-tx:#0a4080;--you-mid:#378add;
+  --sar-bg:#fbeaf0;--sar-tx:#72243e;--sar-mid:#d4537e;
+  --shared-bg:#eaf3de;--shared-tx:#27500a;
+  --run-bg:#ddeeff;--run-tx:#0a4080;
+  --bike-bg:#dff0d0;--bike-tx:#1e5c0a;
+  --str-bg:#ede9fe;--str-tx:#3730a3;
+  --bad-bg:#fce4ef;--bad-tx:#6b1a3a;
+  --rest-bg:#f0ede6;--rest-tx:#4a4a44;
+  --race-bg:#fef0d4;--race-tx:#5c3200;
+  --pil-bg:#fbeaf0;--pil-tx:#72243e;
+  --past-opacity:0.42;
+  --radius:10px;--radius-sm:6px;
+  font-size:16px;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#1a1a18;--card:#252522;--border:#3a3a36;--border-strong:#555550;
+    --text:#e8e8e2;--muted:#9a9a94;--hint:#606060;
+    --you-bg:#0c2a4a;--you-tx:#85b7eb;--you-mid:#378add;
+    --sar-bg:#3a1020;--sar-tx:#ed93b1;--sar-mid:#d4537e;
+    --shared-bg:#1a2e0e;--shared-tx:#97c459;
+    --run-bg:#0c2a4a;--run-tx:#85b7eb;
+    --bike-bg:#102208;--bike-tx:#97c459;
+    --str-bg:#1e1a40;--str-tx:#afa9ec;
+    --bad-bg:#2a0d1a;--bad-tx:#ed93b1;
+    --rest-bg:#2a2a26;--rest-tx:#b4b2a9;
+    --race-bg:#2a1e06;--race-tx:#fac775;
+    --pil-bg:#2a0d1a;--pil-tx:#ed93b1;
+  }
+}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.5;-webkit-text-size-adjust:100%}
+a{color:inherit}
+
+/* ── HEADER ── */
+.header{background:var(--text);color:var(--bg);padding:0}
+.header-inner{max-width:700px;margin:0 auto;padding:1.25rem 1rem 0}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:1rem}
+.header-title{font-size:1.15rem;font-weight:600;letter-spacing:-.01em}
+.header-sub{font-size:.75rem;opacity:.6;margin-top:2px}
+.countdown-box{background:rgba(255,255,255,.1);border-radius:var(--radius-sm);padding:8px 12px;text-align:center;min-width:80px;flex-shrink:0}
+.countdown-num{font-size:1.6rem;font-weight:700;line-height:1;letter-spacing:-.03em}
+.countdown-label{font-size:.65rem;opacity:.7;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+.progress-bar-wrap{height:3px;background:rgba(255,255,255,.15);margin-bottom:0}
+.progress-bar-fill{height:3px;background:linear-gradient(90deg,var(--you-mid),var(--sar-mid));transition:width .5s}
+
+/* ── TABS ── */
+.tabs{max-width:700px;margin:0 auto;display:flex;gap:6px;padding:.75rem 1rem}
+.tab{flex:1;padding:8px 4px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:.8rem;font-weight:500;cursor:pointer;text-align:center;transition:all .15s;font-family:inherit}
+.tab:active{transform:scale(.97)}
+.tab.active-you{background:var(--you-bg);border-color:var(--you-mid);color:var(--you-tx)}
+.tab.active-sarah{background:var(--sar-bg);border-color:var(--sar-mid);color:var(--sar-tx)}
+.tab.active-both{background:var(--shared-bg);border-color:#639922;color:var(--shared-tx)}
+
+/* ── STATS STRIP ── */
+.stats-strip{max-width:700px;margin:0 auto;display:flex;gap:8px;padding:0 1rem .75rem;overflow-x:auto;scrollbar-width:none}
+.stats-strip::-webkit-scrollbar{display:none}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 12px;flex-shrink:0;min-width:0}
+.stat-l{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.stat-v{font-size:.9rem;font-weight:600;white-space:nowrap;margin-top:1px}
+
+/* ── LEGEND ── */
+.legend{max-width:700px;margin:0 auto;padding:0 1rem .75rem;display:flex;gap:5px;flex-wrap:wrap}
+.pill{font-size:.68rem;font-weight:600;padding:3px 8px;border-radius:20px;white-space:nowrap}
+
+/* ── MAIN ── */
+.main{max-width:700px;margin:0 auto;padding:0 1rem 3rem}
+
+/* ── PHASE ── */
+.phase-divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0 0}
+.phase-head{display:flex;align-items:center;gap:8px;margin:1.25rem 0 .3rem;flex-wrap:wrap}
+.phase-badge{font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px}
+.phase-title{font-size:.95rem;font-weight:600}
+.phase-sub{font-size:.72rem;color:var(--muted);margin-bottom:.6rem}
+
+/* ── WEEK GRID ── */
+.week-grid{display:grid;gap:5px;margin-bottom:.25rem}
+.wcard{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 9px 6px;cursor:pointer;transition:border-color .12s,opacity .2s;-webkit-tap-highlight-color:transparent;user-select:none}
+.wcard:active{transform:scale(.97)}
+.wcard.past{opacity:var(--past-opacity)}
+.wcard.current-week{border:2px solid var(--text)!important}
+.wcard.active-you{border:2px solid var(--you-mid)}
+.wcard.active-sarah{border:2px solid var(--sar-mid)}
+.wcard.active-both{border:2px solid #639922}
+.wnum{font-size:.65rem;color:var(--hint);margin-bottom:1px}
+.wdate{font-size:.6rem;color:var(--hint);margin-bottom:2px}
+.wlabel{font-size:.68rem;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.3}
+.wbar-bg{height:3px;background:var(--border);border-radius:2px}
+.wbar{height:3px;border-radius:2px;transition:width .3s}
+.wkm{font-size:.62rem;color:var(--muted);margin-top:2px}
+.past .wlabel{color:var(--muted)}
+
+/* ── DETAIL PANEL ── */
+.detail-panel{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:1rem 1.1rem;margin-top:.75rem;display:none}
+.dtitle{font-size:.9rem;font-weight:600;margin-bottom:10px}
+.person-block{margin-bottom:10px}
+.person-block:last-child{margin-bottom:0}
+.person-tag{font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.you-tag{background:var(--you-bg);color:var(--you-tx)}
+.sar-tag{background:var(--sar-bg);color:var(--sar-tx)}
+.srow{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.srow:last-child{border-bottom:none;padding-bottom:0}
+.sday{font-size:.72rem;font-weight:700;color:var(--muted);min-width:28px;padding-top:3px;flex-shrink:0}
+.sdesc{font-size:.78rem;color:var(--text);line-height:1.5;display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.st{font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.shared-tag{font-size:.6rem;background:var(--shared-bg);color:var(--shared-tx);padding:1px 6px;border-radius:10px;font-weight:600}
+
+/* ── CURRENT WEEK BANNER ── */
+.current-banner{background:var(--text);color:var(--bg);border-radius:var(--radius-sm);padding:8px 12px;margin-bottom:.75rem;font-size:.78rem;display:flex;align-items:center;gap:8px}
+.current-banner strong{font-weight:700}
+
+/* ── MOBILE ── */
+@media(max-width:480px){
+  .header-title{font-size:1rem}
+  .countdown-num{font-size:1.3rem}
+  .week-grid{gap:4px}
+  .wcard{padding:7px 7px 5px}
+  .wlabel{font-size:.65rem}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div>
+        <div class="header-title">Half Marathon 2026–27</div>
+        <div class="header-sub">Your plan &amp; Sarah's plan &nbsp;·&nbsp; 32 weeks</div>
+      </div>
+      <div class="countdown-box">
+        <div class="countdown-num" id="cd-num">—</div>
+        <div class="countdown-label">days to race</div>
+      </div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="prog-fill" style="width:0%"></div>
+    </div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab active-you" onclick="setView('you')">Your plan</button>
+  <button class="tab" onclick="setView('sarah')">Sarah</button>
+  <button class="tab" onclick="setView('both')">Both</button>
+</div>
+
+<div class="stats-strip" id="stats-strip"></div>
+<div class="legend" id="legend"></div>
+<div class="main">
+  <div id="current-banner" class="current-banner" style="display:none">
+    <span>&#9654;</span><span id="banner-text"></span>
+  </div>
+  <div id="phases-container"></div>
+  <div class="detail-panel" id="detail-panel"></div>
+</div>
+
+<script>
+const RACE_DATE = new Date('2027-02-21T09:00:00');
+const PLAN_START = new Date('2026-06-23T00:00:00');
+
+const typeMap={run:"run",bike:"bike",str:"str",rest:"rest",bad:"bad",race:"race",pilates:"pil",shared:"shared"};
+const typeLabel={run:"Run",bike:"Bike",str:"Strength",rest:"Rest",bad:"Badminton",race:"Race",pilates:"Pilates",shared:"Shared"};
+const typeBg={run:"var(--run-bg)",bike:"var(--bike-bg)",str:"var(--str-bg)",rest:"var(--rest-bg)",bad:"var(--bad-bg)",race:"var(--race-bg)",pilates:"var(--pil-bg)",shared:"var(--shared-bg)"};
+const typeTx={run:"var(--run-tx)",bike:"var(--bike-tx)",str:"var(--str-tx)",rest:"var(--rest-tx)",bad:"var(--bad-tx)",race:"var(--race-tx)",pilates:"var(--pil-tx)",shared:"var(--shared-tx)"};
+
+const phases=[
+  {name:"Pre-season",badge:"Wks 1–8",sub:"23 Jun – 16 Aug 2026 · Build habit, protect joints",
+   ybc:"var(--you-bg)",ytx:"var(--you-tx)",ybar:"var(--you-mid)",
+   sbc:"var(--sar-bg)",stx:"var(--sar-tx)",sbar:"var(--sar-mid)"},
+  {name:"Phase 1 — base",badge:"Wks 9–16",sub:"18 Aug – 12 Oct 2026 · Aerobic base; Sarah targets 5k",
+   ybc:"#dff0d0",ytx:"#1e5c0a",ybar:"#4a9020",
+   sbc:"#dff0d0",stx:"#1e5c0a",sbar:"#4a9020"},
+  {name:"Phase 2 — development",badge:"Wks 17–26",sub:"13 Oct – 20 Dec 2026 · Tempo; Sarah eyes 10k",
+   ybc:"#fef0d4",ytx:"#7a4800",ybar:"#c07010",
+   sbc:"#fef0d4",stx:"#7a4800",sbar:"#c07010"},
+  {name:"Phase 3 — peak & taper",badge:"Wks 27–32",sub:"22 Dec 2026 – 21 Feb 2027 · Your peak; Sarah maintains",
+   ybc:"var(--sar-bg)",ytx:"var(--sar-tx)",ybar:"var(--sar-mid)",
+   sbc:"var(--sar-bg)",stx:"var(--sar-tx)",sbar:"var(--sar-mid)"},
+];
+
+// weeks: [wkNum, phaseIdx, dateStr, label, youKm, sarahKm, youSessions[], sarahSessions[]]
+// session: {d, t, x, sh?}
+const W=[
+[1,0,"23 Jun","First steps",6,4,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton (1 hr)"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"run",x:"Run/walk 20 min — 2:1 pattern"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"Run/walk 25 min easy",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates (1 hr)"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"run",x:"Run/walk 20 min — 2:1 pattern"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"Run/walk 25 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[2,0,"30 Jun","Find your feet",7,5,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 20 min — squats, glute bridges, press-ups, plank"},{d:"Thu",t:"run",x:"Run/walk 25 min — 3:1 pattern"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"Run/walk 25 min easy",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"str",x:"Bodyweight 20 min — squats, glute bridges, press-ups"},{d:"Thu",t:"run",x:"Run/walk 25 min — 3:1 pattern"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"Run/walk 25 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[3,0,"7 Jul","Add bike",8,5,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 20 min"},{d:"Thu",t:"run",x:"30 min — 3:1 pattern"},{d:"Fri",t:"bike",x:"Static bike 20 min easy"},{d:"Sat",t:"run",x:"30 min easy run/walk",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"str",x:"Bodyweight 20 min"},{d:"Thu",t:"run",x:"30 min — 3:1 pattern"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"30 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[4,0,"14 Jul","Light deload",6,4,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"run",x:"20 min very easy"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"20 min easy",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"run",x:"20 min very easy"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"20 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[5,0,"21 Jul","Extend runs",9,6,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 25 min — add lunges, calf raises"},{d:"Thu",t:"run",x:"30 min — 4:1 pattern"},{d:"Fri",t:"bike",x:"Static bike 25 min easy"},{d:"Sat",t:"run",x:"35 min easy run/walk",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"str",x:"Bodyweight 20 min"},{d:"Thu",t:"bike",x:"Static bike 20 min easy"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"35 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[6,0,"28 Jul","Towards continuous",10,7,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 25 min"},{d:"Thu",t:"run",x:"30 min — 5:1 pattern"},{d:"Fri",t:"bike",x:"Static bike 25 min easy"},{d:"Sat",t:"run",x:"35 min — aim for continuous",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"str",x:"Bodyweight 20 min"},{d:"Thu",t:"run",x:"25 min — 5:1 pattern"},{d:"Fri",t:"bike",x:"Static bike 20 min easy"},{d:"Sat",t:"run",x:"35 min — aim continuous together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[7,0,"4 Aug","First continuous",12,8,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 30 min — single-leg deadlifts"},{d:"Thu",t:"run",x:"30 min continuous easy"},{d:"Fri",t:"bike",x:"Static bike 30 min"},{d:"Sat",t:"run",x:"40 min easy",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"str",x:"Bodyweight 25 min"},{d:"Thu",t:"run",x:"25 min — first fully continuous run if ready"},{d:"Fri",t:"bike",x:"Static bike 20 min"},{d:"Sat",t:"run",x:"40 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[8,0,"11 Aug","Pre-season deload",8,5,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"run",x:"20 min very easy"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"25 min easy",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"run",x:"20 min easy"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"25 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[9,1,"18 Aug","Main plan begins",14,9,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"run",x:"30 min continuous easy"},{d:"Fri",t:"bike",x:"Static bike 30 min easy"},{d:"Sat",t:"run",x:"45 min easy long run",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"str",x:"Bodyweight 25 min"},{d:"Thu",t:"run",x:"25 min continuous easy"},{d:"Fri",t:"bike",x:"Static bike 25 min easy"},{d:"Sat",t:"run",x:"30 min easy — run together, you continue solo",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[10,1,"25 Aug","Build volume",16,10,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"run",x:"35 min easy"},{d:"Fri",t:"bike",x:"Static bike 35 min"},{d:"Sat",t:"run",x:"50 min easy (~7 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"str",x:"Bodyweight 25 min"},{d:"Thu",t:"run",x:"25 min easy"},{d:"Fri",t:"bike",x:"Static bike 25 min"},{d:"Sat",t:"run",x:"30 min easy — start together, you extend",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[11,1,"1 Sep","Long run builds",18,11,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 30 min — jump squats"},{d:"Thu",t:"run",x:"35 min easy"},{d:"Fri",t:"bike",x:"Static bike 35 min"},{d:"Sat",t:"run",x:"55 min easy (~8 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"str",x:"Bodyweight 25 min"},{d:"Thu",t:"run",x:"30 min easy"},{d:"Fri",t:"bike",x:"Static bike 25 min"},{d:"Sat",t:"run",x:"35 min easy — start together, you extend",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[12,1,"8 Sep","Deload",12,7,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Light bodyweight 20 min"},{d:"Thu",t:"run",x:"25 min very easy"},{d:"Fri",t:"bike",x:"25 min easy"},{d:"Sat",t:"run",x:"30 min easy",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"run",x:"20 min easy"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"25 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[13,1,"15 Sep","Sarah targets 5k",20,12,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"run",x:"35 min easy"},{d:"Fri",t:"bike",x:"40 min easy"},{d:"Sat",t:"run",x:"60 min easy (~9 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"run",x:"30 min continuous"},{d:"Fri",t:"bike",x:"Static bike 30 min"},{d:"Sat",t:"run",x:"5k run — Sarah's first 5k benchmark!",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[14,1,"22 Sep","5k complete",21,13,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 35 min"},{d:"Thu",t:"run",x:"35 min easy"},{d:"Fri",t:"bike",x:"40 min easy"},{d:"Sat",t:"run",x:"65 min easy (~10 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"run",x:"30 min easy — consolidate 5k fitness"},{d:"Fri",t:"bike",x:"Static bike 30 min"},{d:"Sat",t:"run",x:"35 min easy — start together, you extend",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[15,1,"29 Sep","Consolidate",22,14,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 35 min"},{d:"Thu",t:"run",x:"40 min easy"},{d:"Fri",t:"bike",x:"40 min moderate"},{d:"Sat",t:"run",x:"65 min easy (~10 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"run",x:"35 min easy — push past 5k distance"},{d:"Fri",t:"bike",x:"Static bike 30 min"},{d:"Sat",t:"run",x:"40 min easy — start together, you extend",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[16,1,"6 Oct","Deload",13,8,
+ [{d:"Mon",t:"rest",x:"Rest"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Light bodyweight 20 min"},{d:"Thu",t:"run",x:"25 min easy"},{d:"Fri",t:"bike",x:"25 min easy"},{d:"Sat",t:"run",x:"35 min easy",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"run",x:"20 min easy"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"25 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[17,2,"13 Oct","Add 3rd run",23,15,
+ [{d:"Mon",t:"run",x:"30 min easy"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 35 min"},{d:"Thu",t:"run",x:"35 min — 2×5 min hard effort"},{d:"Fri",t:"bike",x:"35 min easy"},{d:"Sat",t:"run",x:"65 min easy (~10 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"run",x:"30 min easy — Sarah's new midweek run"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"bike",x:"Static bike 30 min"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"45 min easy — start together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[18,2,"20 Oct","Tempo intro",25,16,
+ [{d:"Mon",t:"run",x:"30 min easy"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 35 min"},{d:"Thu",t:"run",x:"40 min — wu10, 2×7 min tempo, cd10"},{d:"Fri",t:"bike",x:"35 min easy"},{d:"Sat",t:"run",x:"70 min easy (~11 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"run",x:"30 min easy"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"bike",x:"Static bike 30 min moderate"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"45 min easy — start together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[19,2,"27 Oct","Build long run",26,16,
+ [{d:"Mon",t:"run",x:"30 min easy"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 35 min"},{d:"Thu",t:"run",x:"40 min — 3×6 min tempo"},{d:"Fri",t:"bike",x:"40 min easy"},{d:"Sat",t:"run",x:"75 min easy (~12 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"run",x:"30 min easy"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"bike",x:"Static bike 35 min"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"50 min easy — start together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[20,2,"3 Nov","Deload",17,10,
+ [{d:"Mon",t:"run",x:"25 min easy"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Light bodyweight 20 min"},{d:"Thu",t:"run",x:"25 min easy"},{d:"Fri",t:"bike",x:"30 min easy"},{d:"Sat",t:"run",x:"40 min easy",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"run",x:"20 min easy"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"30 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[21,2,"10 Nov","10k time trial",26,17,
+ [{d:"Mon",t:"run",x:"30 min easy"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 35 min"},{d:"Thu",t:"run",x:"30 min easy — fresh for Sat"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"Your 10k time trial — note your time!",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"run",x:"30 min easy"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"rest",x:"Rest — fresh for Saturday"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"Sarah's 7k benchmark — push the distance",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[22,2,"17 Nov","Post benchmark",27,17,
+ [{d:"Mon",t:"run",x:"30 min easy"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 35 min"},{d:"Thu",t:"run",x:"40 min — 2×10 min tempo"},{d:"Fri",t:"bike",x:"40 min easy"},{d:"Sat",t:"run",x:"80 min easy (~13 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"run",x:"30 min easy"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"bike",x:"Static bike 35 min"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"50 min easy — start together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[23,2,"24 Nov","Long run builds",28,18,
+ [{d:"Mon",t:"run",x:"35 min easy"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 35 min"},{d:"Thu",t:"run",x:"40 min — 3×8 min tempo"},{d:"Fri",t:"bike",x:"40 min easy"},{d:"Sat",t:"run",x:"88 min easy (~14 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"run",x:"35 min easy"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"bike",x:"Static bike 35 min"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"Sarah's 8k target — new distance PB",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[24,2,"1 Dec","Deload",18,11,
+ [{d:"Mon",t:"run",x:"25 min easy"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Light bodyweight 20 min"},{d:"Thu",t:"run",x:"25 min easy"},{d:"Fri",t:"bike",x:"30 min easy"},{d:"Sat",t:"run",x:"45 min easy",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"run",x:"25 min easy"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"30 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[25,2,"8 Dec","Push to 15/9 km",29,17,
+ [{d:"Mon",t:"run",x:"35 min easy"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 35 min"},{d:"Thu",t:"run",x:"40 min — 3×10 min tempo"},{d:"Fri",t:"bike",x:"40 min easy"},{d:"Sat",t:"run",x:"95 min easy (~15 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"run",x:"35 min easy"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"bike",x:"Static bike 35 min"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"Sarah aims for 9k — split at 9k",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[26,2,"15 Dec","Christmas buffer",20,13,
+ [{d:"Mon",t:"run",x:"30 min easy"},{d:"Tue",t:"bad",x:"Badminton (if running)"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"run",x:"30 min easy"},{d:"Fri",t:"rest",x:"Rest — Christmas flexibility"},{d:"Sat",t:"run",x:"50 min easy",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates (if running)"},{d:"Tue",t:"run",x:"25 min easy"},{d:"Wed",t:"rest",x:"Rest — Christmas flexibility"},{d:"Thu",t:"rest",x:"Rest"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"35 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[27,3,"22 Dec","Peak block",30,16,
+ [{d:"Mon",t:"run",x:"35 min easy"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"run",x:"40 min — 2×12 min HM effort"},{d:"Fri",t:"bike",x:"40 min easy"},{d:"Sat",t:"run",x:"100 min easy (~16 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"run",x:"30 min easy"},{d:"Wed",t:"str",x:"Bodyweight 25 min"},{d:"Thu",t:"bike",x:"Static bike 30 min"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"Sarah's 10k target — split at 10k",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[28,3,"29 Dec","New Year deload",20,11,
+ [{d:"Mon",t:"run",x:"30 min easy"},{d:"Tue",t:"bad",x:"Badminton if running"},{d:"Wed",t:"str",x:"Light bodyweight 20 min"},{d:"Thu",t:"run",x:"25 min easy"},{d:"Fri",t:"bike",x:"30 min easy"},{d:"Sat",t:"run",x:"50 min easy",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates if running"},{d:"Tue",t:"rest",x:"Rest"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"run",x:"25 min easy"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"30 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[29,3,"5 Jan","Long run to 17 km",30,16,
+ [{d:"Mon",t:"run",x:"35 min easy"},{d:"Tue",t:"bad",x:"Badminton"},{d:"Wed",t:"str",x:"Bodyweight 30 min"},{d:"Thu",t:"run",x:"40 min — 2×15 min HM effort"},{d:"Fri",t:"bike",x:"40 min easy"},{d:"Sat",t:"run",x:"105 min easy (~17 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"run",x:"30 min easy"},{d:"Wed",t:"str",x:"Bodyweight 25 min"},{d:"Thu",t:"bike",x:"Static bike 30 min"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"Sarah 10k+ — split at 10k, you continue",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[30,3,"12 Jan","Peak — 18 km",30,16,
+ [{d:"Mon",t:"run",x:"35 min easy"},{d:"Tue",t:"bad",x:"Badminton — last hard session"},{d:"Wed",t:"str",x:"Bodyweight 30 min — last hard strength"},{d:"Thu",t:"run",x:"35 min — 3×8 min HM effort"},{d:"Fri",t:"bike",x:"35 min easy"},{d:"Sat",t:"run",x:"110 min easy (~18 km) — longest run",sh:1},{d:"Sun",t:"rest",x:"Rest — hard work done!"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"run",x:"30 min easy"},{d:"Wed",t:"str",x:"Bodyweight 25 min"},{d:"Thu",t:"bike",x:"Static bike 30 min"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"Sarah's longest run — aim for 10k",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[31,3,"19 Jan","Taper week 1",24,14,
+ [{d:"Mon",t:"run",x:"30 min easy"},{d:"Tue",t:"bad",x:"Badminton — lighter effort"},{d:"Wed",t:"str",x:"Light bodyweight 20 min"},{d:"Thu",t:"run",x:"30 min — 2×8 min HM effort"},{d:"Fri",t:"bike",x:"30 min easy"},{d:"Sat",t:"run",x:"75 min easy (~12 km)",sh:1},{d:"Sun",t:"rest",x:"Rest"}],
+ [{d:"Mon",t:"pilates",x:"Pilates"},{d:"Tue",t:"run",x:"25 min easy"},{d:"Wed",t:"str",x:"Light bodyweight 20 min"},{d:"Thu",t:"bike",x:"Static bike 25 min easy"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"40 min easy — together",sh:1},{d:"Sun",t:"rest",x:"Rest"}]],
+[32,3,"26 Jan","Race week",14,10,
+ [{d:"Mon",t:"run",x:"25 min easy with 3×30 sec strides"},{d:"Tue",t:"bad",x:"Badminton — skip or light"},{d:"Wed",t:"run",x:"20 min — 3×8 min HM effort"},{d:"Thu",t:"bike",x:"20 min easy"},{d:"Fri",t:"rest",x:"Rest — kit ready, sleep early"},{d:"Sat",t:"run",x:"10 min shake-out, 4×20 sec strides",sh:1},{d:"Sun",t:"race",x:"RACE DAY — 21 Feb 2027! Target: 2:15–2:30"}],
+ [{d:"Mon",t:"pilates",x:"Pilates — gentle session"},{d:"Tue",t:"run",x:"25 min easy — cheer squad prep"},{d:"Wed",t:"rest",x:"Rest"},{d:"Thu",t:"rest",x:"Rest"},{d:"Fri",t:"rest",x:"Rest"},{d:"Sat",t:"run",x:"20 min easy shake-out together",sh:1},{d:"Sun",t:"rest",x:"Rest — cheer from the sidelines!"}]],
+];
+
+const MAX_Y=30,MAX_S=18;
+let view='you', selWk=null;
+
+function getDaysToRace(){
+  const now=new Date();
+  const diff=RACE_DATE-now;
+  return Math.max(0,Math.ceil(diff/(1000*60*60*24)));
+}
+
+function getCurrentWeek(){
+  const now=new Date();
+  if(now<PLAN_START) return -1;
+  const diff=now-PLAN_START;
+  const wk=Math.floor(diff/(7*24*60*60*1000));
+  return wk; // 0-indexed
+}
+
+function isWeekPast(wkIdx){
+  const cw=getCurrentWeek();
+  return cw>wkIdx;
+}
+
+function isWeekCurrent(wkIdx){
+  return getCurrentWeek()===wkIdx;
+}
+
+function getPlanProgress(){
+  const totalDays=RACE_DATE-PLAN_START;
+  const elapsed=new Date()-PLAN_START;
+  return Math.min(100,Math.max(0,(elapsed/totalDays)*100));
+}
+
+function initHeader(){
+  const days=getDaysToRace();
+  document.getElementById('cd-num').textContent=days>0?days:'Race day!';
+  document.getElementById('prog-fill').style.width=getPlanProgress().toFixed(1)+'%';
+}
+
+function initBanner(){
+  const cw=getCurrentWeek();
+  const banner=document.getElementById('current-banner');
+  const txt=document.getElementById('banner-text');
+  if(cw>=0&&cw<32){
+    const wk=W[cw];
+    txt.innerHTML=`<strong>This week: Week ${wk[0]} — ${wk[3]}</strong> &nbsp;·&nbsp; w/c ${wk[2]}`;
+    banner.style.display='flex';
+  }
+}
+
+function statsHTML(){
+  if(view==='you') return [
+    {l:'Goal',v:'Half marathon'},{l:'Race',v:'21 Feb 2027'},{l:'Start',v:'23 Jun 2026'},{l:'Peak week',v:'~30 km'}
+  ];
+  if(view==='sarah') return [
+    {l:'Goal',v:'5k → 10k'},{l:'Pilates',v:'Monday weekly'},{l:'Start',v:'23 Jun 2026'},{l:'Peak week',v:'~18 km'}
+  ];
+  return [
+    {l:'Shared sessions',v:'Sat long run'},{l:'Weeks',v:'32'},{l:'Start',v:'23 Jun 2026'},{l:'Race day',v:'21 Feb 2027'}
+  ];
+}
+
+function legendHTML(){
+  const pills=[
+    {t:'run',l:'Run'},{t:'bike',l:'Bike'},{t:'str',l:'Strength'}
+  ];
+  if(view==='you'||view==='both') pills.push({t:'bad',l:'Badminton'});
+  if(view==='sarah'||view==='both') pills.push({t:'pilates',l:'Pilates'});
+  if(view==='both') pills.push({t:'shared',l:'Shared'});
+  pills.push({t:'rest',l:'Rest'});
+  return pills.map(p=>`<span class="pill" style="background:${typeBg[p.t]};color:${typeTx[p.t]}">${p.l}</span>`).join('');
+}
+
+function stTag(t){
+  return `<span class="st" style="background:${typeBg[t]};color:${typeTx[t]}">${typeLabel[t]||t}</span>`;
+}
+
+function sessionsHTML(sessions){
+  return sessions.map(s=>`
+    <div class="srow">
+      <div class="sday">${s.d}</div>
+      <div class="sdesc">${stTag(s.t)} ${s.x}${s.sh?` <span class="shared-tag">shared</span>`:''}</div>
+    </div>`).join('');
+}
+
+function setView(v){
+  view=v; selWk=null;
+  document.getElementById('detail-panel').style.display='none';
+  document.querySelectorAll('.tab').forEach(t=>t.className='tab');
+  document.querySelector(`[onclick="setView('${v}')"]`).className=`tab active-${v}`;
+  document.getElementById('stats-strip').innerHTML=statsHTML().map(s=>`<div class="stat"><div class="stat-l">${s.l}</div><div class="stat-v">${s.v}</div></div>`).join('');
+  document.getElementById('legend').innerHTML=legendHTML();
+  render();
+}
+
+function render(){
+  const c=document.getElementById('phases-container');
+  c.innerHTML='';
+  phases.forEach((ph,pi)=>{
+    const sec=document.createElement('div');
+    if(pi>0){const hr=document.createElement('hr');hr.className='phase-divider';sec.appendChild(hr);}
+    const bc=view==='sarah'?ph.sbc:ph.ybc;
+    const bt=view==='sarah'?ph.stx:ph.ytx;
+    sec.innerHTML+=`<div class="phase-head"><span class="phase-badge" style="background:${bc};color:${bt}">${ph.badge}</span><span class="phase-title">${ph.name}</span></div><p class="phase-sub">${ph.sub}</p>`;
+    const phWks=W.filter(w=>w[1]===pi);
+    const grid=document.createElement('div');
+    grid.className='week-grid';
+    grid.style.gridTemplateColumns=`repeat(${phWks.length},minmax(0,1fr))`;
+    phWks.forEach(wk=>{
+      const gi=wk[0]-1;
+      const past=isWeekPast(gi);
+      const curr=isWeekCurrent(gi);
+      const bar=view==='sarah'?ph.sbar:ph.ybar;
+      const km=view==='sarah'?wk[5]:wk[4];
+      const maxKm=view==='sarah'?MAX_S:MAX_Y;
+      const pct=Math.round((km/maxKm)*100);
+      const activeClass=view==='both'?'active-both':view==='sarah'?'active-sarah':'active-you';
+      let cls='wcard'+(past?' past':'')+(curr?' current-week':'')+(selWk===gi?' '+activeClass:'');
+      const card=document.createElement('div');
+      card.className=cls;
+      card.innerHTML=`<div class="wnum">Wk ${wk[0]}</div><div class="wdate">${wk[2]}</div><div class="wlabel">${wk[3]}</div><div class="wbar-bg"><div class="wbar" style="width:${pct}%;background:${past?'var(--hint)':bar}"></div></div><div class="wkm">${km} km</div>`;
+      card.addEventListener('click',()=>{
+        selWk=(selWk===gi)?null:gi;
+        render();
+        if(selWk!==null) setTimeout(()=>document.getElementById('detail-panel').scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+      });
+      grid.appendChild(card);
+    });
+    sec.appendChild(grid);
+    c.appendChild(sec);
+  });
+
+  const panel=document.getElementById('detail-panel');
+  if(selWk!==null){
+    const wk=W[selWk];
+    const past=isWeekPast(selWk);
+    const curr=isWeekCurrent(selWk);
+    const badge=past?'<span class="pill" style="background:var(--rest-bg);color:var(--rest-tx);margin-left:6px">Completed</span>':curr?'<span class="pill" style="background:var(--you-bg);color:var(--you-tx);margin-left:6px">This week</span>':'';
+    let html=`<div class="dtitle">Week ${wk[0]} &nbsp;·&nbsp; w/c ${wk[2]} — ${wk[3]}${badge}</div>`;
+    if(view==='both'){
+      html+=`<div class="person-block"><div class="person-tag you-tag">Your sessions</div>${sessionsHTML(wk[6])}</div>`;
+      html+=`<div class="person-block" style="margin-top:10px"><div class="person-tag sar-tag">Sarah's sessions</div>${sessionsHTML(wk[7])}</div>`;
+    } else {
+      html+=sessionsHTML(view==='sarah'?wk[7]:wk[6]);
+    }
+    panel.innerHTML=html;
+    panel.style.display='block';
+  } else {
+    panel.style.display='none';
+  }
+}
+
+initHeader();
+initBanner();
+setView('you');
+
+setInterval(()=>{
+  document.getElementById('cd-num').textContent=getDaysToRace()||'Race day!';
+  document.getElementById('prog-fill').style.width=getPlanProgress().toFixed(1)+'%';
+},60000);
+</script>
+</body>
+</html>
